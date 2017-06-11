@@ -1,7 +1,9 @@
 #pragma rtGlobals=3		// Use modern global access method and strict wave access.
 //---------------------------------------------------------------------------------------------------------
+// Author : Ankit Raj
 // Fit baseline for a wave with cubic polynomial. Processes all waves in a folder which have matching prefixString 
 // and firstNum to lastNum.
+// Generates the fitted baseline and baseline removed (processed wave with "blr_index appended to the prefix string") 
  
 Function Baseline_fitting_batch(prefixString, firstNum, lastNum)
 	String prefixString		// The part of the name that is common to all waves.
