@@ -15,7 +15,8 @@ Function Baseline_fitting_batch(prefixString, firstNum, lastNum)
 	Variable firstNum		// Number of the first wave in the series.
 	Variable lastNum		// Number of the last wave in the series.
  
- 	make /o /d /n=(lastNum,4) fit_param	; make /o /d /n=(4) W_coef=0
+ 	make /o /d /n=(lastNum,4) fit_param	
+	make /o /d /n=(4) W_coef=0
  	wave dataset_wave=fit_param
  	wave W_coef=W_coef
  
@@ -43,10 +44,10 @@ Function Baseline_fitting_batch(prefixString, firstNum, lastNum)
 		//print sname, blname
 		make /o /d /n=1340 $blname=poly(W_coef,xwave)
  		wave baseline=$blname
- 		make /o /d /n=1340 $baseline_rem=inpw   - baseline
- 		
+ 		make /o /d /n=1340 $baseline_rem=inpw  - baseline
  		//-----------------------------------------------------------
 	EndFor
-	print ""; print "processed"
+	print ""
+	print "processed"
 End
 //---------------------------------------------------------------------------------------------------------
