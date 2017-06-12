@@ -19,7 +19,15 @@ Function Baseline_fitting_batch(prefixString, firstNum, lastNum)
 	make /o /d /n=(4) W_coef=0
  	wave dataset_wave=fit_param
  	wave W_coef=W_coef
- 
+ 	
+	// Change the path of the following waves.
+	wave xwave=root:high_pressure:evac_removed:xpnt
+	wave mask_wave=root:high_pressure:evac_removed:Mask_baseline_inp00
+	// A quick check for existence of index wave having the band center expressed in points.
+	if(!WaveExists(xwave) & !WaveExists(mask_wave) )
+		Abort "Missing wave : 'xwave' describing the point is missing or the 'mask wave' is missing. Check."
+	endif
+	//-----------------------------------------------------------------
 	Variable n
 	String currentWaveName
 	For (n=firstNum; n<=lastNum; n+=1)
@@ -29,8 +37,7 @@ Function Baseline_fitting_batch(prefixString, firstNum, lastNum)
 		printf "%s " nameofwave(currentWave), dimsize(currentWave,0)   
 		
 		wave inpw=currentWave
-		wave xwave=root:high_pressure:evac_removed:xpnt
-		wave mask_wave=root:high_pressure:evac_removed:Mask_baseline_inp00
+				
  		//-----------------------------------------------------------
  		CurveFit /Q poly 4, inpw /X=xwave /M=mask_wave  
  		dataset_wave[n-1][0]=K0
